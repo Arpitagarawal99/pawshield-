@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pet Health Score — How Protected Is Your Pet? | PawShield</title>
+<meta name="description" content="Take the free 30-second quiz to find out your pet's health risk score. See what vet emergencies could cost you — and how to protect your furry family member.">
+<meta property="og:title" content="🐾 What's Your Pet's Health Score? Take the Free Quiz">
+<meta property="og:description" content="30-second quiz. Find out your pet's health risk score and what vet bills could cost you. Built by PawShield — India's simplest pet insurance platform.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=1200&h=630&fit=crop">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#C4704B">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐾</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --cream: #FFF9F2;
+  --peach-soft: #FFF0E3;
+  --terracotta: #C4704B;
+  --terracotta-dark: #A85A38;
+  --brown-deep: #3D2B1F;
+  --brown-mid: #5C3D2E;
+  --sage: #2D6A4F;
+  --sage-light: #B7E4C7;
+  --sage-bg: #F0FAF4;
+  --gold: #E9A319;
+  --gold-soft: #FFF7E6;
+  --red: #D94F4F;
+  --red-soft: #FFF0F0;
+  --orange: #E8833A;
+  --text: #2C1810;
+  --text-muted: #6B5B50;
+  --text-light: #9A8B80;
+  --border: #EDE5DC;
+  --white: #FFFFFF;
+  --shadow-md: 0 4px 16px rgba(61,43,31,0.08);
+  --shadow-lg: 0 8px 32px rgba(61,43,31,0.12);
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 100px;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Logo bar */
+.logo-bar {
+  width: 100%;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(255,249,242,0.95);
+  backdrop-filter: blur(10px);
+}
+.logo-bar a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--brown-deep);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.logo-icon {
+  width: 32px; height: 32px;
+  background: var(--terracotta);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+
+/* Quiz container */
+.quiz-wrapper {
+  width: 100%;
+  max-width: 520px;
+  padding: 24px 20px 40px;
+  flex: 1;
+}
+
+/* Progress bar */
+.progress-container {
+  margin-bottom: 28px;
+}
+.progress-text {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-light);
+  margin-bottom: 8px;
+}
+.progress-bar {
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--terracotta), var(--gold));
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+/* Question slides */
+.question-slide {
+  display: none;
+  animation: slideIn 0.35s ease;
+}
+.question-slide.active { display: block; }
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.question-emoji {
+  font-size: 2.4rem;
+  margin-bottom: 12px;
+  display: block;
+}
+.question-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--brown-deep);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+.question-subtitle {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+/* Option buttons */
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.option-btn {
+  width: 100%;
+  padding: 16px 20px;
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.option-btn:hover {
+  border-color: var(--terracotta);
+  background: var(--peach-soft);
+}
+.option-btn .opt-icon {
+  font-size: 1.3rem;
+  min-width: 28px;
+  text-align: center;
+}
+.option-btn .opt-text { flex: 1; }
+
+/* Pet info form (Q1) */
+.pet-input-group {
+  margin-bottom: 16px;
+}
+.pet-input-group label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.88rem;
+  margin-bottom: 6px;
+  color: var(--brown-deep);
+}
+.pet-input-group input,
+.pet-input-group select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--text);
+  background: var(--white);
+  transition: border-color 0.2s;
+  appearance: none;
+}
+.pet-input-group input:focus,
+.pet-input-group select:focus {
+  outline: none;
+  border-color: var(--terracotta);
+}
+.pet-input-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.next-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--terracotta);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-full);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.25s;
+}
+.next-btn:hover { background: var(--terracotta-dark); transform: translateY(-1px); }
+.next-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+/* ===== RESULT SCREEN ===== */
+.result-screen {
+  display: none;
+  animation: fadeIn 0.5s ease;
+}
+.result-screen.active { display: block; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Score card — the shareable part */
+.score-card {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  margin-bottom: 24px;
+}
+.score-card-header {
+  padding: 28px 28px 20px;
+  text-align: center;
+  position: relative;
+}
+.score-card-header .pet-name-display {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+/* Circular score gauge */
+.score-gauge {
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 16px;
+  position: relative;
+}
+.score-gauge svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+.score-gauge .bg-ring {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 10;
+}
+.score-gauge .score-ring {
+  fill: none;
+  stroke-width: 10;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1.5s ease, stroke 0.5s ease;
+}
+.score-gauge .score-number {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.score-gauge .score-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.score-gauge .score-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+
+.risk-level-badge {
+  display: inline-block;
+  padding: 6px 20px;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.risk-low { background: var(--sage-bg); color: var(--sage); }
+.risk-moderate { background: var(--gold-soft); color: #92700A; }
+.risk-high { background: var(--red-soft); color: var(--red); }
+
+.risk-summary {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  padding: 0 28px;
+  margin-bottom: 20px;
+}
+
+/* Risk factors in result */
+.risk-factors {
+  padding: 0 28px 24px;
+}
+.risk-factors h4 {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-light);
+  margin-bottom: 12px;
+}
+.risk-factor-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.88rem;
+}
+.risk-factor-item:last-child { border-bottom: none; }
+.risk-factor-item .factor-name { color: var(--text); font-weight: 500; }
+.risk-factor-item .factor-impact { font-weight: 700; font-size: 0.8rem; }
+.impact-high { color: var(--red); }
+.impact-medium { color: var(--orange); }
+.impact-low { color: var(--sage); }
+
+/* Insurance nudge */
+.insurance-nudge {
+  background: linear-gradient(135deg, var(--brown-deep), var(--brown-mid));
+  padding: 24px 28px;
+  color: var(--white);
+}
+.insurance-nudge .nudge-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.insurance-nudge .nudge-text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  opacity: 0.9;
+  margin-bottom: 4px;
+}
+.insurance-nudge .nudge-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+/* PawShield watermark on score card */
+.score-card-footer {
+  padding: 12px 28px;
+  background: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+/* Action buttons below card */
+.result-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.action-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--radius-full);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+}
+.action-btn.primary {
+  background: var(--terracotta);
+  color: var(--white);
+  box-shadow: 0 4px 16px rgba(196,112,75,0.3);
+}
+.action-btn.primary:hover { background: var(--terracotta-dark); }
+.action-btn.whatsapp {
+  background: #25D366;
+  color: var(--white);
+  box-shadow: 0 4px 16px rgba(37,211,102,0.3);
+}
+.action-btn.whatsapp:hover { background: #1DA851; }
+.action-btn.secondary {
+  background: var(--white);
+  color: var(--brown-deep);
+  border: 1.5px solid var(--border);
+}
+.action-btn.secondary:hover { border-color: var(--terracotta); color: var(--terracotta); }
+
+/* Lead capture on result */
+.lead-capture {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-md);
+}
+.lead-capture h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--brown-deep);
+  margin-bottom: 4px;
+}
+.lead-capture p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+.lead-capture input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+}
+.lead-capture input:focus { outline: none; border-color: var(--terracotta); }
+
+/* Responsive */
+@media (max-width: 480px) {
+  .quiz-wrapper { padding: 16px 16px 32px; }
+  .question-title { font-size: 1.3rem; }
+  .pet-input-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Logo -->
+<div class="logo-bar">
+  <a href="https://pawshield-jet.vercel.app">
+    <div class="logo-icon">🛡️</div>
+    PawShield
+  </a>
+</div>
+
+<!-- Quiz Container -->
+<div class="quiz-wrapper">
+
+  <!-- Progress -->
+  <div class="progress-container" id="progressContainer">
+    <div class="progress-text">
+      <span id="progressLabel">Question 1 of 5</span>
+      <span id="progressPercent">0%</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <!-- Q1: Pet Info -->
+  <div class="question-slide active" id="q1">
+    <span class="question-emoji">🐾</span>
+    <div class="question-title">First, tell us about your pet</div>
+    <div class="question-subtitle">This helps us calculate breed-specific risks.</div>
+
+    <div class="pet-input-group">
+      <label>Pet's name</label>
+      <input type="text" id="qPetName" placeholder="e.g., Buddy, Luna, Coco...">
+    </div>
+    <div class="pet-input-row">
+      <div class="pet-input-group">
+        <label>Type</label>
+        <select id="qPetType">
+          <option value="dog">🐕 Dog</option>
+          <option value="cat">🐈 Cat</option>
+        </select>
+      </div>
+      <div class="pet-input-group">
+        <label>Age</label>
+        <select id="qPetAge">
+          <option value="">Select</option>
+          <option value="puppy">Under 1 year</option>
+          <option value="young">1–3 years</option>
+          <option value="adult">3–7 years</option>
+          <option value="senior">7+ years</option>
+        </select>
+      </div>
+    </div>
+    <div class="pet-input-group">
+      <label>Breed</label>
+      <select id="qPetBreed">
+        <option value="">Select breed</option>
+        <option>Labrador Retriever</option>
+        <option>German Shepherd</option>
+        <option>Golden Retriever</option>
+        <option>Lhasa Apso</option>
+        <option>Pug</option>
+        <option>Beagle</option>
+        <option>Shih Tzu</option>
+        <option>Pomeranian</option>
+        <option>Rottweiler</option>
+        <option>Doberman</option>
+        <option>Indian Spitz</option>
+        <option>Cocker Spaniel</option>
+        <option>Indie / Mixed</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <button class="next-btn" id="q1Next" onclick="validateQ1()" disabled>Continue →</button>
+  </div>
+
+  <!-- Q2: Exercise -->
+  <div class="question-slide" id="q2">
+    <span class="question-emoji">🏃</span>
+    <div class="question-title">How active is your pet?</div>
+    <div class="question-subtitle">Activity level affects injury and joint disease risk.</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(2, 'couch_potato', 5)">
+        <span class="opt-icon">😴</span>
+        <span class="opt-text">Couch potato — barely moves</span>
+      </button>
+      <button class="option-btn" onclick="answer(2, 'moderate', 10)">
+        <span class="opt-icon">🚶</span>
+        <span class="opt-text">Moderate — daily walks, some play</span>
+      </button>
+      <button class="option-btn" onclick="answer(2, 'active', 15)">
+        <span class="opt-icon">🏃</span>
+        <span class="opt-text">Very active — runs, jumps, plays hard</span>
+      </button>
+      <button class="option-btn" onclick="answer(2, 'outdoor', 20)">
+        <span class="opt-icon">🌳</span>
+        <span class="opt-text">Outdoor adventurer — parks, hikes, off-leash</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Q3: Diet -->
+  <div class="question-slide" id="q3">
+    <span class="question-emoji">🍖</span>
+    <div class="question-title">What does your pet eat?</div>
+    <div class="question-subtitle">Diet directly impacts obesity, diabetes, and digestive issues.</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(3, 'premium', 5)">
+        <span class="opt-icon">⭐</span>
+        <span class="opt-text">Premium branded food (Royal Canin, Pedigree Pro, etc.)</span>
+      </button>
+      <button class="option-btn" onclick="answer(3, 'home_cooked', 10)">
+        <span class="opt-icon">🍳</span>
+        <span class="opt-text">Home-cooked meals</span>
+      </button>
+      <button class="option-btn" onclick="answer(3, 'mixed', 12)">
+        <span class="opt-icon">🔄</span>
+        <span class="opt-text">Mix of branded food + home food + treats</span>
+      </button>
+      <button class="option-btn" onclick="answer(3, 'table_scraps', 20)">
+        <span class="opt-icon">🍕</span>
+        <span class="opt-text">Mostly table scraps / whatever we eat</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Q4: Vet Visits -->
+  <div class="question-slide" id="q4">
+    <span class="question-emoji">🏥</span>
+    <div class="question-title">How often do you visit the vet?</div>
+    <div class="question-subtitle">Preventive care catches problems early.</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(4, 'regular', 5)">
+        <span class="opt-icon">📅</span>
+        <span class="opt-text">Every 3–6 months for checkups</span>
+      </button>
+      <button class="option-btn" onclick="answer(4, 'annual', 10)">
+        <span class="opt-icon">📆</span>
+        <span class="opt-text">Once a year (vaccinations only)</span>
+      </button>
+      <button class="option-btn" onclick="answer(4, 'sick_only', 18)">
+        <span class="opt-icon">🤒</span>
+        <span class="opt-text">Only when my pet seems sick</span>
+      </button>
+      <button class="option-btn" onclick="answer(4, 'never', 25)">
+        <span class="opt-icon">🚫</span>
+        <span class="opt-text">Rarely or never been to the vet</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Q5: Insurance -->
+  <div class="question-slide" id="q5">
+    <span class="question-emoji">🛡️</span>
+    <div class="question-title">Does your pet have insurance?</div>
+    <div class="question-subtitle">Last question! Almost there.</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(5, 'yes', 0)">
+        <span class="opt-icon">✅</span>
+        <span class="opt-text">Yes, fully insured</span>
+      </button>
+      <button class="option-btn" onclick="answer(5, 'thinking', 10)">
+        <span class="opt-icon">🤔</span>
+        <span class="opt-text">No, but I've been thinking about it</span>
+      </button>
+      <button class="option-btn" onclick="answer(5, 'didnt_know', 15)">
+        <span class="opt-icon">😮</span>
+        <span class="opt-text">I didn't know pet insurance existed in India!</span>
+      </button>
+      <button class="option-btn" onclick="answer(5, 'too_expensive', 12)">
+        <span class="opt-icon">💸</span>
+        <span class="opt-text">Looked into it but seems expensive/confusing</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== RESULT SCREEN ===== -->
+  <div class="result-screen" id="resultScreen">
+
+    <div class="score-card" id="scoreCard">
+      <div class="score-card-header">
+        <div class="pet-name-display" id="resultPetName"></div>
+
+        <div class="score-gauge">
+          <svg viewBox="0 0 120 120">
+            <circle class="bg-ring" cx="60" cy="60" r="50"></circle>
+            <circle class="score-ring" id="scoreRing" cx="60" cy="60" r="50"
+              stroke-dasharray="314" stroke-dashoffset="314"></circle>
+          </svg>
+          <div class="score-number">
+            <span class="score-value" id="scoreValue">0</span>
+            <span class="score-label">/ 100</span>
+          </div>
+        </div>
+
+        <div class="risk-level-badge" id="riskBadge"></div>
+      </div>
+
+      <p class="risk-summary" id="riskSummary"></p>
+
+      <div class="risk-factors" id="riskFactors">
+        <h4>Risk Breakdown</h4>
+        <!-- Populated by JS -->
+      </div>
+
+      <div class="insurance-nudge" id="insuranceNudge">
+        <div class="nudge-label">💡 Our Recommendation</div>
+        <div class="nudge-text" id="nudgeText"></div>
+        <div class="nudge-price" id="nudgePrice"></div>
+      </div>
+
+      <div class="score-card-footer">
+        🛡️ PawShield · pawshield-jet.vercel.app
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="result-actions">
+      <button class="action-btn primary" onclick="window.location.href='https://pawshield-jet.vercel.app#plans'">
+        🛡️ See Insurance Plans
+      </button>
+      <button class="action-btn whatsapp" onclick="shareResult()">
+        <svg width="18" height="18" fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Share on WhatsApp
+      </button>
+      <button class="action-btn secondary" onclick="retakeQuiz()">
+        🔄 Retake Quiz
+      </button>
+    </div>
+
+    <!-- Lead capture -->
+    <div class="lead-capture" id="leadCapture">
+      <h4>Get personalized insurance recommendations</h4>
+      <p>We'll send plans matched to your pet's risk profile on WhatsApp.</p>
+      <input type="tel" id="resultPhone" placeholder="Your WhatsApp number (+91...)">
+      <button class="next-btn" onclick="submitLead()">Send Me Plans →</button>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+// Supabase config - same as main site
+var SUPABASE_URL = 'YOUR_SUPABASE_URL';
+var SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+var supabaseClient = null;
+
+function initSupabase() {
+  try {
+    if (SUPABASE_URL !== 'YOUR_SUPABASE_URL' && window.supabase && window.supabase.createClient) {
+      supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    }
+  } catch(e) {}
+}
+
+function saveToSupabase(table, data) {
+  try {
+    if (supabaseClient) {
+      supabaseClient.from(table).insert([data]).then(function(){}).catch(function(){});
+    } else {
+      console.log('[Demo] ' + table + ':', JSON.stringify(data));
+    }
+  } catch(e) {}
+}
+
+initSupabase();
+
+// ===== QUIZ STATE =====
+var quizData = {
+  petName: '',
+  petType: 'dog',
+  petAge: '',
+  petBreed: '',
+  answers: {},
+  totalScore: 0
+};
+
+var currentQuestion = 1;
+var totalQuestions = 5;
+
+// Breed base risk scores (higher = more risk)
+var breedRisk = {
+  'Labrador Retriever': 18, 'German Shepherd': 20, 'Golden Retriever': 22,
+  'Lhasa Apso': 16, 'Pug': 20, 'Beagle': 14, 'Shih Tzu': 15,
+  'Pomeranian': 14, 'Rottweiler': 24, 'Doberman': 22,
+  'Indian Spitz': 10, 'Cocker Spaniel': 16, 'Indie / Mixed': 10, 'Other': 14
+};
+
+// Age risk multiplier
+var ageRisk = {
+  'puppy': 8, 'young': 5, 'adult': 12, 'senior': 25
+};
+
+// Enable Q1 next button when all fields filled
+document.getElementById('qPetName').addEventListener('input', checkQ1);
+document.getElementById('qPetAge').addEventListener('change', checkQ1);
+document.getElementById('qPetBreed').addEventListener('change', checkQ1);
+
+function checkQ1() {
+  var name = document.getElementById('qPetName').value.trim();
+  var age = document.getElementById('qPetAge').value;
+  var breed = document.getElementById('qPetBreed').value;
+  document.getElementById('q1Next').disabled = !(name && age && breed);
+}
+
+function validateQ1() {
+  quizData.petName = document.getElementById('qPetName').value.trim();
+  quizData.petType = document.getElementById('qPetType').value;
+  quizData.petAge = document.getElementById('qPetAge').value;
+  quizData.petBreed = document.getElementById('qPetBreed').value;
+
+  // Add breed + age base risk
+  quizData.totalScore += (breedRisk[quizData.petBreed] || 14);
+  quizData.totalScore += (ageRisk[quizData.petAge] || 10);
+
+  goToQuestion(2);
+}
+
+function answer(qNum, value, points) {
+  quizData.answers['q' + qNum] = value;
+  quizData.totalScore += points;
+
+  if (qNum < totalQuestions) {
+    goToQuestion(qNum + 1);
+  } else {
+    showResult();
+  }
+}
+
+function goToQuestion(num) {
+  currentQuestion = num;
+
+  // Hide all
+  document.querySelectorAll('.question-slide').forEach(function(s) { s.classList.remove('active'); });
+
+  // Show target
+  document.getElementById('q' + num).classList.add('active');
+
+  // Update progress
+  var pct = Math.round(((num - 1) / totalQuestions) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = 'Question ' + num + ' of ' + totalQuestions;
+  document.getElementById('progressPercent').textContent = pct + '%';
+}
+
+function showResult() {
+  // Hide progress and questions
+  document.getElementById('progressContainer').style.display = 'none';
+  document.querySelectorAll('.question-slide').forEach(function(s) { s.classList.remove('active'); });
+
+  // Calculate final score (invert: 100 = healthy, 0 = high risk)
+  var rawScore = quizData.totalScore; // higher = worse
+  var healthScore = Math.max(10, Math.min(95, 100 - rawScore));
+
+  // Determine risk level
+  var riskLevel, riskColor, riskClass, summaryText, nudgeText, nudgePrice;
+
+  if (healthScore >= 75) {
+    riskLevel = '🟢 Low Risk';
+    riskColor = '#2D6A4F';
+    riskClass = 'risk-low';
+    summaryText = quizData.petName + ' is in good shape! But even healthy pets face unexpected emergencies. A basic accident plan would keep you covered without breaking the bank.';
+    nudgeText = 'Recommended: Essential Shield (accident coverage)';
+    nudgePrice = 'From ₹169/month';
+  } else if (healthScore >= 50) {
+    riskLevel = '🟡 Moderate Risk';
+    riskColor = '#E9A319';
+    riskClass = 'risk-moderate';
+    summaryText = quizData.petName + ' has some risk factors that could lead to expensive vet visits. An accident + illness plan would protect you from bills that could easily cross ₹50,000.';
+    nudgeText = 'Recommended: Complete Shield (accident + illness)';
+    nudgePrice = 'From ₹499/month';
+  } else {
+    riskLevel = '🔴 High Risk';
+    riskColor = '#D94F4F';
+    riskClass = 'risk-high';
+    summaryText = quizData.petName + ' has several risk factors. ' + quizData.petBreed + ' dogs are prone to breed-specific conditions that can cost ₹50,000–₹2,00,000+. Comprehensive insurance is strongly recommended.';
+    nudgeText = 'Recommended: Total Shield (comprehensive coverage)';
+    nudgePrice = 'From ₹999/month';
+  }
+
+  // Set pet name
+  document.getElementById('resultPetName').textContent = quizData.petName + "'s Health Score";
+
+  // Animate score gauge
+  var circumference = 314; // 2 * PI * 50
+  var offset = circumference - (healthScore / 100) * circumference;
+  var ring = document.getElementById('scoreRing');
+  ring.style.stroke = riskColor;
+
+  setTimeout(function() {
+    ring.style.strokeDashoffset = offset;
+  }, 100);
+
+  // Animate number
+  var scoreEl = document.getElementById('scoreValue');
+  scoreEl.style.color = riskColor;
+  var counter = 0;
+  var interval = setInterval(function() {
+    counter += 2;
+    if (counter >= healthScore) {
+      counter = healthScore;
+      clearInterval(interval);
+    }
+    scoreEl.textContent = counter;
+  }, 20);
+
+  // Set badge
+  var badge = document.getElementById('riskBadge');
+  badge.textContent = riskLevel;
+  badge.className = 'risk-level-badge ' + riskClass;
+
+  // Set summary
+  document.getElementById('riskSummary').textContent = summaryText;
+
+  // Build risk factors
+  var factors = [];
+  factors.push({
+    name: 'Breed (' + quizData.petBreed + ')',
+    impact: (breedRisk[quizData.petBreed] || 14) > 18 ? 'High' : (breedRisk[quizData.petBreed] || 14) > 12 ? 'Medium' : 'Low'
+  });
+  factors.push({
+    name: 'Age (' + quizData.petAge + ')',
+    impact: ageRisk[quizData.petAge] > 15 ? 'High' : ageRisk[quizData.petAge] > 8 ? 'Medium' : 'Low'
+  });
+
+  var activityLabels = { 'couch_potato': 'Low activity', 'moderate': 'Moderate activity', 'active': 'High activity', 'outdoor': 'Outdoor lifestyle' };
+  var activityImpact = { 'couch_potato': 'Low', 'moderate': 'Medium', 'active': 'Medium', 'outdoor': 'High' };
+  if (quizData.answers.q2) {
+    factors.push({ name: activityLabels[quizData.answers.q2], impact: activityImpact[quizData.answers.q2] });
+  }
+
+  var dietLabels = { 'premium': 'Premium diet', 'home_cooked': 'Home-cooked diet', 'mixed': 'Mixed diet', 'table_scraps': 'Table scraps diet' };
+  var dietImpact = { 'premium': 'Low', 'home_cooked': 'Medium', 'mixed': 'Medium', 'table_scraps': 'High' };
+  if (quizData.answers.q3) {
+    factors.push({ name: dietLabels[quizData.answers.q3], impact: dietImpact[quizData.answers.q3] });
+  }
+
+  var vetLabels = { 'regular': 'Regular vet visits', 'annual': 'Annual vet visits', 'sick_only': 'Vet only when sick', 'never': 'Rare vet visits' };
+  var vetImpact = { 'regular': 'Low', 'annual': 'Medium', 'sick_only': 'High', 'never': 'High' };
+  if (quizData.answers.q4) {
+    factors.push({ name: vetLabels[quizData.answers.q4], impact: vetImpact[quizData.answers.q4] });
+  }
+
+  var insuranceLabels = { 'yes': 'Has insurance', 'thinking': 'Considering insurance', 'didnt_know': 'Unaware of insurance', 'too_expensive': 'Finds insurance confusing' };
+  var insuranceImpact = { 'yes': 'Low', 'thinking': 'Medium', 'didnt_know': 'High', 'too_expensive': 'High' };
+  if (quizData.answers.q5) {
+    factors.push({ name: insuranceLabels[quizData.answers.q5], impact: insuranceImpact[quizData.answers.q5] });
+  }
+
+  var factorsHtml = '';
+  factors.forEach(function(f) {
+    var impactClass = f.impact === 'High' ? 'impact-high' : f.impact === 'Medium' ? 'impact-medium' : 'impact-low';
+    factorsHtml += '<div class="risk-factor-item"><span class="factor-name">' + f.name + '</span><span class="factor-impact ' + impactClass + '">' + f.impact + ' Risk</span></div>';
+  });
+  document.getElementById('riskFactors').innerHTML = '<h4>Risk Breakdown</h4>' + factorsHtml;
+
+  // Set insurance nudge
+  document.getElementById('nudgeText').textContent = nudgeText;
+  document.getElementById('nudgePrice').textContent = nudgePrice;
+
+  // Show result
+  document.getElementById('resultScreen').classList.add('active');
+
+  // Save to Supabase
+  saveToSupabase('pet_profiles', {
+    pet_name: quizData.petName,
+    pet_type: quizData.petType,
+    breed: quizData.petBreed,
+    age: quizData.petAge,
+    city: 'quiz',
+    phone: 'quiz-score-' + healthScore,
+    created_at: new Date().toISOString()
+  });
+
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function shareResult() {
+  var score = document.getElementById('scoreValue').textContent;
+  var text = "🐾 My pet " + quizData.petName + "'s Health Score is " + score + "/100!\n\n" +
+    "I just took the free Pet Health Score quiz on PawShield. " +
+    "Find out YOUR pet's risk score and what vet bills could cost you 👇\n\n" +
+    "https://pawshield-jet.vercel.app/quiz.html";
+  window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+}
+
+function submitLead() {
+  var phone = document.getElementById('resultPhone').value;
+  if (!phone || phone.length < 10) {
+    document.getElementById('resultPhone').focus();
+    return;
+  }
+
+  saveToSupabase('waitlist', {
+    phone: phone,
+    plan_selected: 'quiz-recommendation',
+    source: 'quiz_result',
+    created_at: new Date().toISOString()
+  });
+
+  document.getElementById('leadCapture').innerHTML = '<div style="text-align:center;padding:16px"><span style="font-size:2rem">🎉</span><h4 style="margin:8px 0">Done!</h4><p style="font-size:0.9rem;color:#6B5B50">We\'ll send personalized plans to your WhatsApp within 24 hours.</p></div>';
+}
+
+function retakeQuiz() {
+  quizData = { petName: '', petType: 'dog', petAge: '', petBreed: '', answers: {}, totalScore: 0 };
+  currentQuestion = 1;
+  document.getElementById('resultScreen').classList.remove('active');
+  document.getElementById('progressContainer').style.display = 'block';
+  document.getElementById('progressFill').style.width = '0%';
+  document.getElementById('progressLabel').textContent = 'Question 1 of 5';
+  document.getElementById('progressPercent').textContent = '0%';
+  document.getElementById('scoreRing').style.strokeDashoffset = 314;
+  document.getElementById('q1').classList.add('active');
+  document.getElementById('qPetName').value = '';
+  document.getElementById('qPetAge').value = '';
+  document.getElementById('qPetBreed').value = '';
+  document.getElementById('q1Next').disabled = true;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
