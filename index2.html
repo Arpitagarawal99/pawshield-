@@ -1212,10 +1212,10 @@ a { color: inherit; text-decoration: none; }
 <script>
 // ===== SUPABASE CONFIG =====
 // 🔧 REPLACE THESE WITH YOUR ACTUAL SUPABASE VALUES (see deployment guide)
-const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const SUPABASE_URL = 'https://gloyyskxmvzufpslunok.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdsb3l5c2t4bXZ6dWZwc2x1bm9rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA0NTM2ODgsImV4cCI6MjA4NjAyOTY4OH0.AFccltwbETr5geQuq9UbLngVrws_ucTvOJxwOKGtNG4';
 
-let supabaseClient = null;
+let supabase = null;
 
 // Load Supabase only if configured
 function initSupabase() {
