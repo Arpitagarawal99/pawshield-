@@ -1209,22 +1209,26 @@ a { color: inherit; text-decoration: none; }
   </div>
 </div>
 
+<!-- Load Supabase SDK first -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
 // ===== SUPABASE CONFIG =====
 // 🔧 REPLACE THESE WITH YOUR ACTUAL SUPABASE VALUES (see deployment guide)
 const SUPABASE_URL = 'https://gloyyskxmvzufpslunok.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdsb3l5c2t4bXZ6dWZwc2x1bm9rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA0NTM2ODgsImV4cCI6MjA4NjAyOTY4OH0.AFccltwbETr5geQuq9UbLngVrws_ucTvOJxwOKGtNG4';
 
-let supabase = null;
-  
-// Load Supabase only if configured
+var supabaseClient = null;
+
+// Initialize Supabase
 function initSupabase() {
   try {
     if (SUPABASE_URL !== 'YOUR_SUPABASE_URL' && window.supabase && window.supabase.createClient) {
       supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-      console.log('Supabase connected!');
+      console.log('✅ Supabase connected!');
+    } else if (SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+      console.log('⏳ Supabase SDK not loaded yet — will retry on first save');
     } else {
-      console.log('Running in demo mode — Supabase not configured yet');
+      console.log('ℹ️ Running in demo mode — Supabase not configured');
     }
   } catch(e) { console.log('Supabase init skipped:', e.message); }
 }
@@ -1232,16 +1236,24 @@ function initSupabase() {
 // Helper to save data — NEVER blocks the UI
 async function saveToSupabase(table, data) {
   try {
+    // Retry init if not connected yet but credentials exist
+    if (!supabaseClient && SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+      initSupabase();
+    }
     if (!supabaseClient) {
       console.log('[Demo Mode] Would save to ' + table + ':', JSON.stringify(data));
       return true;
     }
-    const { error } = await supabaseClient.from(table).insert([data]);
-    if (error) { console.error('Supabase error:', error); }
-    return !error;
+    var result = await supabaseClient.from(table).insert([data]);
+    if (result.error) {
+      console.error('Supabase error:', result.error.message);
+    } else {
+      console.log('✅ Saved to ' + table);
+    }
+    return !result.error;
   } catch(e) {
     console.error('Save failed:', e);
-    return true; // Return true anyway so UI continues
+    return true;
   }
 }
 
@@ -1514,11 +1526,9 @@ document.getElementById('successModal').addEventListener('click', (e) => {
   if (e.target === e.currentTarget) closeModal();
 });
 
-// Initialize Supabase after page is ready
+// Initialize Supabase
 initSupabase();
 </script>
-<!-- Load Supabase SDK (non-blocking — won't break the app if CDN is down) -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer onerror="console.log('Supabase CDN unavailable — running in demo mode')"></script>
 
 </body>
 </html>
