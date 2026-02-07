@@ -1209,7 +1209,6 @@ a { color: inherit; text-decoration: none; }
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 // ===== SUPABASE CONFIG =====
 // 🔧 REPLACE THESE WITH YOUR ACTUAL SUPABASE VALUES (see deployment guide)
@@ -1217,20 +1216,27 @@ const SUPABASE_URL = 'https://gloyyskxmvzufpslunok.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdsb3l5c2t4bXZ6dWZwc2x1bm9rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA0NTM2ODgsImV4cCI6MjA4NjAyOTY4OH0.AFccltwbETr5geQuq9UbLngVrws_ucTvOJxwOKGtNG4';
 
 let supabase = null;
-try {
-  if (SUPABASE_URL !== 'YOUR_SUPABASE_URL' && typeof window.supabase !== 'undefined') {
-    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  }
-} catch(e) { console.log('Supabase not configured yet — running in demo mode'); }
+
+// Load Supabase only if configured
+function initSupabase() {
+  try {
+    if (SUPABASE_URL !== 'YOUR_SUPABASE_URL' && window.supabase && window.supabase.createClient) {
+      supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      console.log('Supabase connected!');
+    } else {
+      console.log('Running in demo mode — Supabase not configured yet');
+    }
+  } catch(e) { console.log('Supabase init skipped:', e.message); }
+}
 
 // Helper to save data
 async function saveToSupabase(table, data) {
-  if (!supabase) {
-    console.log(`[Demo Mode] Would save to ${table}:`, data);
+  if (!supabaseClient) {
+    console.log('[Demo Mode] Would save to ' + table + ':', data);
     return true;
   }
   try {
-    const { error } = await supabase.from(table).insert([data]);
+    const { error } = await supabaseClient.from(table).insert([data]);
     if (error) { console.error('Supabase error:', error); return false; }
     return true;
   } catch(e) {
@@ -1505,7 +1511,12 @@ function closeModal() {
 document.getElementById('successModal').addEventListener('click', (e) => {
   if (e.target === e.currentTarget) closeModal();
 });
+
+// Initialize Supabase after page is ready
+initSupabase();
 </script>
+<!-- Load Supabase SDK (non-blocking — won't break the app if CDN is down) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer onerror="console.log('Supabase CDN unavailable — running in demo mode')"></script>
 
 </body>
 </html>
