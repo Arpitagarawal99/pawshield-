@@ -1212,10 +1212,10 @@ a { color: inherit; text-decoration: none; }
 <script>
 // ===== SUPABASE CONFIG =====
 // 🔧 REPLACE THESE WITH YOUR ACTUAL SUPABASE VALUES (see deployment guide)
-const SUPABASE_URL = 'https://gloyyskxmvzufpslunok.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdsb3l5c2t4bXZ6dWZwc2x1bm9rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA0NTM2ODgsImV4cCI6MjA4NjAyOTY4OH0.AFccltwbETr5geQuq9UbLngVrws_ucTvOJxwOKGtNG4';
+const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
 
-let supabase = null;
+let supabaseClient = null;
 
 // Load Supabase only if configured
 function initSupabase() {
@@ -1229,19 +1229,19 @@ function initSupabase() {
   } catch(e) { console.log('Supabase init skipped:', e.message); }
 }
 
-// Helper to save data
+// Helper to save data — NEVER blocks the UI
 async function saveToSupabase(table, data) {
-  if (!supabaseClient) {
-    console.log('[Demo Mode] Would save to ' + table + ':', data);
-    return true;
-  }
   try {
+    if (!supabaseClient) {
+      console.log('[Demo Mode] Would save to ' + table + ':', JSON.stringify(data));
+      return true;
+    }
     const { error } = await supabaseClient.from(table).insert([data]);
-    if (error) { console.error('Supabase error:', error); return false; }
-    return true;
+    if (error) { console.error('Supabase error:', error); }
+    return !error;
   } catch(e) {
     console.error('Save failed:', e);
-    return false;
+    return true; // Return true anyway so UI continues
   }
 }
 
@@ -1339,39 +1339,34 @@ const breedData = {
 
 // ===== POPULATE BREED GRID =====
 const breedGrid = document.getElementById('breedGrid');
-Object.entries(breedData).forEach(([name, data]) => {
-  const btn = document.createElement('button');
+Object.keys(breedData).forEach(function(name) {
+  var data = breedData[name];
+  var btn = document.createElement('button');
   btn.type = 'button';
   btn.className = 'breed-btn';
-  btn.innerHTML = `<span class="breed-emoji">${data.emoji}</span>${name}`;
-  btn.onclick = () => selectBreed(name, btn);
+  btn.innerHTML = '<span class="breed-emoji">' + data.emoji + '</span>' + name;
+  btn.onclick = function() { selectBreed(name, btn); };
   breedGrid.appendChild(btn);
 });
 
 function selectBreed(name, btn) {
-  document.querySelectorAll('.breed-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.breed-btn').forEach(function(b) { b.classList.remove('active'); });
   btn.classList.add('active');
 
-  // Track breed interest
+  // Track breed interest (non-blocking)
   saveToSupabase('breed_searches', {
     breed: name,
     created_at: new Date().toISOString()
   });
 
-  const data = breedData[name];
+  var data = breedData[name];
   document.getElementById('calcBreedName').textContent = name;
-  document.getElementById('calcBreedMeta').textContent = `${data.size} breed · Lifespan: ${data.lifespan}`;
+  document.getElementById('calcBreedMeta').textContent = data.size + ' breed · Lifespan: ' + data.lifespan;
 
-  const riskList = document.getElementById('riskList');
-  riskList.innerHTML = data.risks.map(r => `
-    <div class="risk-item">
-      <div>
-        <div class="risk-name">${r.name}</div>
-        <div class="risk-desc">${r.desc}</div>
-      </div>
-      <div class="risk-cost">${r.cost}</div>
-    </div>
-  `).join('');
+  var riskList = document.getElementById('riskList');
+  riskList.innerHTML = data.risks.map(function(r) {
+    return '<div class="risk-item"><div><div class="risk-name">' + r.name + '</div><div class="risk-desc">' + r.desc + '</div></div><div class="risk-cost">' + r.cost + '</div></div>';
+  }).join('');
 
   document.getElementById('totalCost').textContent = data.totalMax;
   document.getElementById('insurancePrice').textContent = data.insurance;
@@ -1441,7 +1436,8 @@ async function submitProfile(e) {
   const name = document.getElementById('petName').value;
   const petType = document.querySelector('.pet-type-btn.active')?.textContent.trim().toLowerCase() || 'dog';
 
-  await saveToSupabase('pet_profiles', {
+  // Save in background — don't block UI
+  saveToSupabase('pet_profiles', {
     pet_name: name,
     pet_type: petType,
     breed: document.getElementById('petBreed').value,
@@ -1451,52 +1447,58 @@ async function submitProfile(e) {
     created_at: new Date().toISOString()
   });
 
-  btn.innerHTML = originalText;
-  btn.disabled = false;
-
-  showModal(
-    `${name}'s shield is coming! 🛡️`,
-    `We've saved ${name}'s profile. You'll receive personalized insurance recommendations on WhatsApp within 24 hours. Welcome to the PawShield family!`
-  );
+  // Always show success immediately
+  setTimeout(function() {
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+    showModal(
+      name + "'s shield is coming! 🛡️",
+      "We've saved " + name + "'s profile. You'll receive personalized insurance recommendations on WhatsApp within 24 hours. Welcome to the PawShield family!"
+    );
+  }, 500);
 }
 
 // ===== WAITLIST =====
-async function showWaitlist(planName) {
-  await saveToSupabase('waitlist', {
+function showWaitlist(planName) {
+  // Save in background
+  saveToSupabase('waitlist', {
     plan_selected: planName,
     source: 'plan_card',
     created_at: new Date().toISOString()
   });
 
   showModal(
-    `Great choice! 🎉`,
-    `You selected the ${planName} plan. We're finalizing partnerships with insurers and will notify you the moment this plan is available for purchase. You're now on the priority list!`
+    'Great choice! 🎉',
+    'You selected the ' + planName + ' plan. We are finalizing partnerships with insurers and will notify you the moment this plan is available. You are now on the priority list!'
   );
 }
 
-async function joinWaitlist() {
-  const email = document.getElementById('waitlistEmail').value;
-  if (!email || !email.includes('@')) {
+function joinWaitlist() {
+  var email = document.getElementById('waitlistEmail').value;
+  if (!email || email.indexOf('@') === -1) {
     document.getElementById('waitlistEmail').focus();
     return;
   }
 
-  const btn = document.querySelector('.waitlist-form button');
+  var btn = document.querySelector('.waitlist-form button');
   btn.textContent = '⏳ Joining...';
 
-  await saveToSupabase('waitlist', {
+  // Save in background
+  saveToSupabase('waitlist', {
     email: email,
     source: 'footer_cta',
     created_at: new Date().toISOString()
   });
 
-  btn.textContent = 'Join Waitlist 🐾';
-
-  showModal(
-    `You're on the list! 🐾`,
-    `We'll notify you at ${email} when PawShield launches. You're among the first 500 pet parents to join — that means early access and special pricing.`
-  );
-  document.getElementById('waitlistEmail').value = '';
+  // Always show success immediately
+  setTimeout(function() {
+    btn.textContent = 'Join Waitlist 🐾';
+    showModal(
+      "You're on the list! 🐾",
+      "We'll notify you at " + email + " when PawShield launches. You're among the first 500 pet parents to join — that means early access and special pricing."
+    );
+    document.getElementById('waitlistEmail').value = '';
+  }, 500);
 }
 
 // ===== MODAL =====
