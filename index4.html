@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PawShield — Protect What You Love Most</title>
+<meta name="description" content="India's simplest pet insurance platform. Compare plans, protect your furry family member, and never worry about vet bills again. Starting at ₹169/month.">
+<meta property="og:title" content="PawShield — Pet Insurance Made Simple">
+<meta property="og:description" content="Because love shouldn't come with a medical bill you can't afford. Protect your pet today.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --cream: #FFF9F2;
+  --warm-white: #FFFDFB;
+  --peach: #FFE5CC;
+  --peach-soft: #FFF0E3;
+  --terracotta: #C4704B;
+  --terracotta-dark: #A85A38;
+  --brown-deep: #3D2B1F;
+  --brown-mid: #5C3D2E;
+  --brown-light: #8B6F5E;
+  --sage: #2D6A4F;
+  --sage-light: #B7E4C7;
+  --sage-bg: #F0FAF4;
+  --gold: #E9A319;
+  --gold-soft: #FFF7E6;
+  --red-soft: #FFF0F0;
+  --red: #D94F4F;
+  --text: #2C1810;
+  --text-muted: #6B5B50;
+  --text-light: #9A8B80;
+  --border: #EDE5DC;
+  --white: #FFFFFF;
+  --shadow-sm: 0 1px 3px rgba(61,43,31,0.06);
+  --shadow-md: 0 4px 16px rgba(61,43,31,0.08);
+  --shadow-lg: 0 8px 32px rgba(61,43,31,0.12);
+  --shadow-xl: 0 16px 48px rgba(61,43,31,0.16);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 100px;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+img { max-width: 100%; display: block; }
+button { cursor: pointer; font-family: inherit; }
+a { color: inherit; text-decoration: none; }
+
+/* ===== TYPOGRAPHY ===== */
+.heading-xl {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+}
+.heading-lg {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 600;
+  line-height: 1.2;
+}
+.heading-md {
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.body-lg { font-size: 1.1rem; line-height: 1.8; }
+.body-sm { font-size: 0.9rem; line-height: 1.7; }
+.label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(255,249,242,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  transition: box-shadow 0.3s;
+}
+.navbar.scrolled { box-shadow: var(--shadow-md); }
+.navbar-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--brown-deep);
+}
+.logo-icon {
+  width: 36px; height: 36px;
+  background: var(--terracotta);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--terracotta); }
+.nav-cta {
+  background: var(--terracotta);
+  color: var(--white) !important;
+  padding: 8px 20px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: background 0.2s, transform 0.2s;
+}
+.nav-cta:hover { background: var(--terracotta-dark); transform: translateY(-1px); }
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--brown-deep);
+}
+
+/* ===== HERO ===== */
+.hero {
+  padding: 120px 24px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(233,163,25,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -200px; left: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(196,112,75,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-content { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--peach-soft);
+  color: var(--terracotta);
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+.hero h1 { color: var(--brown-deep); margin-bottom: 20px; }
+.hero h1 span { color: var(--terracotta); }
+.hero p {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  max-width: 560px;
+  margin: 0 auto 32px;
+}
+.hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--terracotta);
+  color: var(--white);
+  border: none;
+  padding: 14px 32px;
+  border-radius: var(--radius-full);
+  font-size: 1rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s;
+  box-shadow: 0 4px 16px rgba(196,112,75,0.3);
+}
+.btn-primary:hover { background: var(--terracotta-dark); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(196,112,75,0.4); }
+.btn-secondary {
+  background: var(--white);
+  color: var(--brown-deep);
+  border: 1.5px solid var(--border);
+  padding: 14px 32px;
+  border-radius: var(--radius-full);
+  font-size: 1rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s;
+}
+.btn-secondary:hover { border-color: var(--terracotta); color: var(--terracotta); transform: translateY(-2px); }
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.hero-stat { text-align: center; }
+.hero-stat .num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--terracotta);
+}
+.hero-stat .txt { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+
+/* ===== TRUST BAR ===== */
+.trust-bar {
+  padding: 32px 24px;
+  text-align: center;
+}
+.trust-bar p { font-size: 0.78rem; color: var(--text-light); letter-spacing: 1px; text-transform: uppercase; font-weight: 500; margin-bottom: 16px; }
+.trust-logos { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; align-items: center; opacity: 0.5; }
+.trust-logos span { font-size: 0.9rem; font-weight: 700; color: var(--brown-light); }
+
+/* ===== SECTION BASE ===== */
+.section {
+  padding: 80px 24px;
+}
+.section-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 48px;
+}
+.section-header .label {
+  color: var(--terracotta);
+  margin-bottom: 12px;
+  display: block;
+}
+.section-header h2 { color: var(--brown-deep); margin-bottom: 12px; }
+.section-header p { color: var(--text-muted); font-size: 1rem; }
+
+/* ===== COCO'S STORY ===== */
+.coco-section {
+  background: linear-gradient(180deg, var(--warm-white) 0%, var(--peach-soft) 100%);
+  padding: 80px 24px;
+  position: relative;
+  overflow: hidden;
+}
+.coco-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.coco-card {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+}
+.coco-visual {
+  position: relative;
+  height: 320px;
+  background: linear-gradient(135deg, var(--brown-deep) 0%, var(--brown-mid) 50%, var(--terracotta) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.coco-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+}
+.coco-visual-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(61,43,31,0.85) 0%, rgba(61,43,31,0.2) 60%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 40px;
+  color: var(--white);
+}
+.coco-visual-overlay .label { color: var(--gold); margin-bottom: 8px; display: block; }
+.coco-visual-overlay h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 600;
+  line-height: 1.2;
+}
+.coco-body {
+  padding: 40px;
+}
+.coco-body p {
+  font-size: 1.05rem;
+  line-height: 2;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+.coco-body p:last-of-type { margin-bottom: 0; }
+.coco-highlight {
+  font-weight: 600;
+  color: var(--terracotta);
+}
+.coco-costs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 32px 0;
+}
+.cost-card {
+  padding: 24px;
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+.cost-card.without {
+  background: var(--red-soft);
+  border: 1px solid #FFD4D4;
+}
+.cost-card.with {
+  background: var(--sage-bg);
+  border: 1px solid #C8E6D3;
+}
+.cost-card .cost-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+}
+.cost-card.without .cost-label { color: var(--red); }
+.cost-card.with .cost-label { color: var(--sage); }
+.cost-card .cost-amount {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+}
+.cost-card.without .cost-amount { color: var(--red); }
+.cost-card.with .cost-amount { color: var(--sage); }
+.cost-card .cost-note { font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; }
+.coco-quote {
+  background: var(--gold-soft);
+  border-left: 4px solid var(--gold);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: 20px 24px;
+  margin-top: 28px;
+}
+.coco-quote p {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--brown-deep);
+  margin-bottom: 0 !important;
+}
+.coco-cta {
+  text-align: center;
+  margin-top: 40px;
+}
+
+/* ===== COST CALCULATOR ===== */
+.calculator-section {
+  background: var(--warm-white);
+}
+.calc-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.calc-card {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  padding: 40px;
+  box-shadow: var(--shadow-lg);
+}
+.breed-selector {
+  margin-bottom: 32px;
+}
+.breed-selector label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+}
+.breed-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+}
+.breed-btn {
+  background: var(--cream);
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+  padding: 14px 8px;
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.breed-btn:hover { border-color: var(--peach); background: var(--peach-soft); }
+.breed-btn.active { border-color: var(--terracotta); background: var(--peach-soft); color: var(--terracotta); font-weight: 700; }
+.breed-btn .breed-emoji { font-size: 1.6rem; display: block; margin-bottom: 6px; }
+
+.calc-results {
+  display: none;
+  animation: fadeSlideUp 0.4s ease;
+}
+.calc-results.show { display: block; }
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.calc-breed-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.calc-breed-meta {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+.risk-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+.risk-item {
+  background: var(--cream);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.risk-item .risk-name { font-weight: 600; font-size: 0.92rem; }
+.risk-item .risk-desc { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+.risk-item .risk-cost {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--red);
+  white-space: nowrap;
+}
+.calc-total {
+  background: var(--red-soft);
+  border: 1px solid #FFD4D4;
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.calc-total .total-label { font-weight: 700; color: var(--red); }
+.calc-total .total-amount {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--red);
+}
+.calc-insurance-pitch {
+  background: var(--sage-bg);
+  border: 1px solid #C8E6D3;
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  text-align: center;
+}
+.calc-insurance-pitch p { font-size: 0.95rem; color: var(--sage); font-weight: 500; }
+.calc-insurance-pitch .insurance-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--sage);
+  margin-top: 4px;
+}
+
+/* ===== INSURANCE PLANS ===== */
+.plans-section {
+  background: var(--cream);
+}
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.plan-card {
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 32px 28px;
+  position: relative;
+  transition: all 0.3s;
+}
+.plan-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+.plan-card.recommended {
+  border-color: var(--terracotta);
+  box-shadow: var(--shadow-lg);
+}
+.plan-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--terracotta);
+  color: var(--white);
+  padding: 4px 16px;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.plan-tier {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-light);
+  margin-bottom: 8px;
+}
+.plan-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--brown-deep);
+  margin-bottom: 4px;
+}
+.plan-insurer { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px; }
+.plan-price {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 20px;
+}
+.plan-price .currency { font-size: 1.2rem; font-weight: 600; color: var(--terracotta); }
+.plan-price .amount {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--terracotta);
+}
+.plan-price .period { font-size: 0.85rem; color: var(--text-muted); margin-left: 4px; }
+.plan-coverage {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.plan-features { list-style: none; margin-bottom: 24px; }
+.plan-features li {
+  font-size: 0.88rem;
+  padding: 6px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.plan-features li::before {
+  content: '✓';
+  color: var(--sage);
+  font-weight: 700;
+  font-size: 0.9rem;
+  min-width: 16px;
+}
+.plan-features li.excluded { opacity: 0.4; }
+.plan-features li.excluded::before { content: '✕'; color: var(--red); }
+.plan-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  transition: all 0.25s;
+}
+.plan-btn.primary { background: var(--terracotta); color: var(--white); box-shadow: 0 4px 16px rgba(196,112,75,0.3); }
+.plan-btn.primary:hover { background: var(--terracotta-dark); }
+.plan-btn.secondary { background: var(--cream); color: var(--brown-deep); border: 1.5px solid var(--border); }
+.plan-btn.secondary:hover { border-color: var(--terracotta); color: var(--terracotta); }
+
+/* ===== HOW IT WORKS ===== */
+.how-section { background: var(--warm-white); }
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 32px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.step-card { text-align: center; }
+.step-icon {
+  width: 72px; height: 72px;
+  background: var(--peach-soft);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem;
+  margin: 0 auto 16px;
+}
+.step-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; color: var(--brown-deep); }
+.step-card p { font-size: 0.88rem; color: var(--text-muted); }
+
+/* ===== PET PROFILE FORM ===== */
+.profile-section { background: var(--cream); }
+.profile-card {
+  max-width: 600px;
+  margin: 0 auto;
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  padding: 40px;
+  box-shadow: var(--shadow-lg);
+}
+.form-group { margin-bottom: 24px; }
+.form-group label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  color: var(--brown-deep);
+}
+.form-group input, .form-group select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--text);
+  background: var(--cream);
+  transition: border-color 0.2s;
+  appearance: none;
+}
+.form-group input:focus, .form-group select:focus {
+  outline: none;
+  border-color: var(--terracotta);
+  background: var(--white);
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.pet-type-selector {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.pet-type-btn {
+  flex: 1;
+  padding: 16px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--cream);
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.pet-type-btn:hover { border-color: var(--peach); }
+.pet-type-btn.active { border-color: var(--terracotta); background: var(--peach-soft); color: var(--terracotta); }
+.pet-type-btn .pet-icon { font-size: 2rem; display: block; margin-bottom: 4px; }
+
+/* ===== WAITLIST / CTA ===== */
+.cta-section {
+  background: linear-gradient(135deg, var(--brown-deep) 0%, var(--brown-mid) 50%, var(--terracotta) 100%);
+  padding: 80px 24px;
+  text-align: center;
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: '🐾';
+  position: absolute;
+  font-size: 20rem;
+  opacity: 0.04;
+  top: -40px; right: -40px;
+  transform: rotate(-15deg);
+}
+.cta-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 700;
+  margin-bottom: 16px;
+  position: relative;
+}
+.cta-section p {
+  font-size: 1.05rem;
+  opacity: 0.8;
+  max-width: 500px;
+  margin: 0 auto 32px;
+  position: relative;
+}
+.waitlist-form {
+  display: flex;
+  gap: 12px;
+  max-width: 460px;
+  margin: 0 auto;
+  position: relative;
+}
+.waitlist-form input {
+  flex: 1;
+  padding: 14px 20px;
+  border: none;
+  border-radius: var(--radius-full);
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+.waitlist-form input:focus { outline: 2px solid var(--gold); }
+.waitlist-form button {
+  background: var(--gold);
+  color: var(--brown-deep);
+  border: none;
+  padding: 14px 28px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: all 0.25s;
+  white-space: nowrap;
+}
+.waitlist-form button:hover { background: #F5B72B; transform: translateY(-2px); }
+
+/* ===== FOOTER ===== */
+.footer {
+  padding: 48px 24px;
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
+.footer-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--brown-deep);
+  margin-bottom: 12px;
+}
+.footer p { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 4px; }
+.footer-links {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin-top: 16px;
+}
+.footer-links a { font-size: 0.82rem; color: var(--text-muted); transition: color 0.2s; }
+.footer-links a:hover { color: var(--terracotta); }
+
+/* ===== MODAL ===== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(61,43,31,0.5);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.modal-overlay.show { display: flex; }
+.modal {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  padding: 40px;
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  animation: modalIn 0.3s ease;
+  position: relative;
+}
+@keyframes modalIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+.modal-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  background: none; border: none;
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.modal .success-icon { font-size: 4rem; margin-bottom: 16px; }
+.modal h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: var(--brown-deep);
+  margin-bottom: 8px;
+}
+.modal p { font-size: 0.95rem; color: var(--text-muted); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .mobile-menu-btn { display: block; }
+  .hero { padding: 100px 20px 60px; }
+  .hero-stats { gap: 24px; }
+  .hero-stat .num { font-size: 1.4rem; }
+  .coco-visual { height: 220px; }
+  .coco-body { padding: 28px; }
+  .coco-costs { grid-template-columns: 1fr; }
+  .breed-grid { grid-template-columns: repeat(3, 1fr); }
+  .plans-grid { grid-template-columns: 1fr; max-width: 400px; }
+  .form-row { grid-template-columns: 1fr; }
+  .waitlist-form { flex-direction: column; }
+  .steps-grid { grid-template-columns: 1fr; gap: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="navbar-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">🛡️</div>
+      PawShield
+    </a>
+    <div class="nav-links">
+      <a href="#coco">Coco's Story</a>
+      <a href="#calculator">Cost Calculator</a>
+      <a href="#plans">Plans</a>
+      <a href="#waitlist" class="nav-cta">Get Protected →</a>
+    </div>
+    <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('show')">☰</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-badge">🇮🇳 India's simplest pet insurance platform</div>
+    <h1 class="heading-xl">Protect what you<br><span>love most</span></h1>
+    <p>Compare pet insurance plans in 60 seconds. No jargon, no paperwork. Just peace of mind — starting at ₹169/month.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="scrollTo('#profile')">🐾 Protect My Pet</button>
+      <button class="btn-secondary" onclick="scrollTo('#coco')">💛 Read Coco's Story</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="num">₹2L+</div>
+        <div class="txt">Avg. serious treatment cost</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">95%</div>
+        <div class="txt">Pet parents uninsured in India</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">₹169</div>
+        <div class="txt">Insurance starts at /month</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <p>Insurance partners</p>
+  <div class="trust-logos">
+    <span>Bajaj Allianz</span>
+    <span>ICICI Lombard</span>
+    <span>Bajaj General</span>
+    <span>SBI General</span>
+    <span>Tata AIG</span>
+  </div>
+</div>
+
+<!-- COCO'S STORY -->
+<section class="coco-section" id="coco">
+  <div class="coco-container">
+    <div class="section-header">
+      <span class="label">Why PawShield Exists</span>
+      <h2 class="heading-lg">This is Coco's story.<br>It could be yours.</h2>
+    </div>
+    <div class="coco-card">
+      <div class="coco-visual">
+        <img src="https://images.unsplash.com/photo-1623387641168-d9803ddd3f35?w=900&h=400&fit=crop&crop=faces" alt="A Lhasa Apso dog" onerror="this.style.display='none'">
+        <div class="coco-visual-overlay">
+          <span class="label">In Loving Memory</span>
+          <h2>Coco 🐾 2015 – 2024<br><span style="font-size:0.7em;font-weight:400;opacity:0.8">Lhasa Apso · Our family's heart</span></h2>
+        </div>
+      </div>
+      <div class="coco-body">
+        <p>Coco was a <span class="coco-highlight">9-year-old Lhasa Apso</span> — the kind of dog who greeted you at the door every single day like you'd been gone for years. Loyal, stubborn, impossibly cute. She was family. Not "like family." <em>Family.</em></p>
+
+        <p>Then something changed. Coco stopped eating well. She became lethargic. We rushed to the vet. Then another vet. Then a specialist. <span class="coco-highlight">For almost 10 months, we went from clinic to clinic</span>, running test after test, hoping for an answer. The diagnosis never came clearly. The bills kept mounting.</p>
+
+        <p>Consultations. Blood work. Ultrasounds. Medications. Emergency visits at 2 AM. Each one with a new bill, a new hope, and a new heartbreak. By the end, we had spent over <span class="coco-highlight">₹1.5 lakhs</span> — and we still lost Coco.</p>
+
+        <div class="coco-costs">
+          <div class="cost-card without">
+            <div class="cost-label">Without Insurance</div>
+            <div class="cost-amount">₹1,50,000+</div>
+            <div class="cost-note">Out of pocket, no safety net</div>
+          </div>
+          <div class="cost-card with">
+            <div class="cost-label">With Insurance</div>
+            <div class="cost-amount">₹15,000</div>
+            <div class="cost-note">Annual premium + small co-pay</div>
+          </div>
+        </div>
+
+        <p>The money isn't even the worst part. The worst part is the <em>guilt</em> — wondering if you could have done more, gone to one more specialist, tried one more treatment. Insurance doesn't bring Coco back. But it would have let us focus on <em>her</em>, not the bills.</p>
+
+        <div class="coco-quote">
+          <p>"We built PawShield so no pet parent has to choose between their savings and their family member's life. This is for every Coco out there — and every family that loves one."</p>
+        </div>
+
+        <div class="coco-cta">
+          <button class="btn-primary" onclick="scrollTo('#plans')">Protect your pet today →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section how-section" id="how">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">How It Works</span>
+      <h2 class="heading-lg">Insured in under 3 minutes</h2>
+      <p>Simpler than ordering food. Seriously.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-icon">🐾</div>
+        <h3>1. Tell us about your pet</h3>
+        <p>Name, breed, age. That's it. Takes 30 seconds.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-icon">📊</div>
+        <h3>2. Compare plans instantly</h3>
+        <p>See 3 plans side-by-side. No jargon — we translate everything.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-icon">💳</div>
+        <h3>3. Pay & you're covered</h3>
+        <p>UPI, card, or net banking. Policy on WhatsApp instantly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COST CALCULATOR -->
+<section class="section calculator-section" id="calculator">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">Eye-Opener</span>
+      <h2 class="heading-lg">What could vet bills cost you?</h2>
+      <p>Select your pet's breed and see the real numbers.</p>
+    </div>
+    <div class="calc-container">
+      <div class="calc-card">
+        <div class="breed-selector">
+          <label>Choose your breed:</label>
+          <div class="breed-grid" id="breedGrid">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+        <div class="calc-results" id="calcResults">
+          <div class="calc-breed-name" id="calcBreedName"></div>
+          <div class="calc-breed-meta" id="calcBreedMeta"></div>
+          <div class="risk-list" id="riskList"></div>
+          <div class="calc-total">
+            <div class="total-label">⚠️ Potential total cost without insurance</div>
+            <div class="total-amount" id="totalCost"></div>
+          </div>
+          <div class="calc-insurance-pitch">
+            <p>With PawShield, you could cover all of this for just</p>
+            <div class="insurance-price" id="insurancePrice"></div>
+            <button class="btn-primary" style="margin-top:16px" onclick="scrollTo('#plans')">See plans →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSURANCE PLANS -->
+<section class="section plans-section" id="plans">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">Plans</span>
+      <h2 class="heading-lg">Simple plans. Real protection.</h2>
+      <p>No hidden clauses. We translated everything to plain language.</p>
+    </div>
+    <div class="plans-grid">
+      <!-- GOOD -->
+      <div class="plan-card">
+        <div class="plan-tier">Good</div>
+        <div class="plan-name">Essential Shield</div>
+        <div class="plan-insurer">Bajaj General Insurance</div>
+        <div class="plan-price">
+          <span class="currency">₹</span>
+          <span class="amount">169</span>
+          <span class="period">/month</span>
+        </div>
+        <div class="plan-coverage">Sum insured up to ₹25,000 · Accident only</div>
+        <ul class="plan-features">
+          <li>Accident & injury coverage</li>
+          <li>Emergency surgery</li>
+          <li>Third-party liability up to ₹1L</li>
+          <li>No pre-policy medical tests</li>
+          <li class="excluded">Illness coverage</li>
+          <li class="excluded">OPD / routine visits</li>
+        </ul>
+        <button class="plan-btn secondary" onclick="showWaitlist('Essential Shield')">Join Waitlist</button>
+      </div>
+
+      <!-- BETTER -->
+      <div class="plan-card recommended">
+        <div class="plan-badge">Most Popular</div>
+        <div class="plan-tier">Better</div>
+        <div class="plan-name">Complete Shield</div>
+        <div class="plan-insurer">Bajaj Allianz Insurance</div>
+        <div class="plan-price">
+          <span class="currency">₹</span>
+          <span class="amount">499</span>
+          <span class="period">/month</span>
+        </div>
+        <div class="plan-coverage">Sum insured up to ₹50,000 · Accident + Illness</div>
+        <ul class="plan-features">
+          <li>Everything in Essential +</li>
+          <li>Illness & hospitalization</li>
+          <li>Surgery coverage up to ₹50K</li>
+          <li>Terminal disease cover (₹30K)</li>
+          <li>Theft / lost / straying cover</li>
+          <li class="excluded">OPD / routine visits</li>
+        </ul>
+        <button class="plan-btn primary" onclick="showWaitlist('Complete Shield')">Join Waitlist</button>
+      </div>
+
+      <!-- BEST -->
+      <div class="plan-card">
+        <div class="plan-tier">Best</div>
+        <div class="plan-name">Total Shield</div>
+        <div class="plan-insurer">ICICI Lombard</div>
+        <div class="plan-price">
+          <span class="currency">₹</span>
+          <span class="amount">999</span>
+          <span class="period">/month</span>
+        </div>
+        <div class="plan-coverage">Sum insured up to ₹1,50,000 · Comprehensive</div>
+        <ul class="plan-features">
+          <li>Everything in Complete +</li>
+          <li>OPD & routine checkups</li>
+          <li>Vaccination coverage</li>
+          <li>Mortality benefit</li>
+          <li>Third-party liability up to ₹15L</li>
+          <li>Cremation / burial support</li>
+        </ul>
+        <button class="plan-btn secondary" onclick="showWaitlist('Total Shield')">Join Waitlist</button>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:0.78rem;color:var(--text-light);margin-top:24px;">* Prices shown are indicative based on a young dog (1-3 yrs), small/medium breed. Actual premium depends on breed, age, and insurer. PawShield is a comparison and distribution platform — policies are issued by respective insurers.</p>
+  </div>
+</section>
+
+<!-- PET PROFILE -->
+<section class="section profile-section" id="profile">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">Get Started</span>
+      <h2 class="heading-lg">Create your pet's profile</h2>
+      <p>Tell us about your furry family member. Takes 60 seconds.</p>
+    </div>
+    <div class="profile-card">
+      <div class="pet-type-selector">
+        <button class="pet-type-btn active" onclick="selectPetType(this,'dog')">
+          <span class="pet-icon">🐕</span> Dog
+        </button>
+        <button class="pet-type-btn" onclick="selectPetType(this,'cat')">
+          <span class="pet-icon">🐈</span> Cat
+        </button>
+      </div>
+      <form id="petForm" onsubmit="submitProfile(event)">
+        <div class="form-group">
+          <label>Your pet's name</label>
+          <input type="text" placeholder="e.g., Buddy, Luna, Coco..." required id="petName">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Breed</label>
+            <select required id="petBreed">
+              <option value="">Select breed</option>
+              <option>Labrador Retriever</option>
+              <option>German Shepherd</option>
+              <option>Golden Retriever</option>
+              <option>Lhasa Apso</option>
+              <option>Pug</option>
+              <option>Beagle</option>
+              <option>Shih Tzu</option>
+              <option>Pomeranian</option>
+              <option>Rottweiler</option>
+              <option>Doberman</option>
+              <option>Indian Spitz</option>
+              <option>Cocker Spaniel</option>
+              <option>Siberian Husky</option>
+              <option>Great Dane</option>
+              <option>Dalmatian</option>
+              <option>Indie / Mixed Breed</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Age</label>
+            <select required id="petAge">
+              <option value="">Select age</option>
+              <option>Puppy (under 1 year)</option>
+              <option>1–3 years</option>
+              <option>3–5 years</option>
+              <option>5–7 years</option>
+              <option>7–10 years</option>
+              <option>10+ years</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your city</label>
+            <select required id="petCity">
+              <option value="">Select city</option>
+              <option>Mumbai</option>
+              <option>Delhi / NCR</option>
+              <option>Bangalore</option>
+              <option>Hyderabad</option>
+              <option>Pune</option>
+              <option>Chennai</option>
+              <option>Kolkata</option>
+              <option>Ahmedabad</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Your phone (WhatsApp)</label>
+            <input type="tel" placeholder="+91 98765 43210" required id="petPhone">
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%;justify-content:center;margin-top:8px;">
+          🐾 Get My Pet's Insurance Quote
+        </button>
+        <p style="font-size:0.75rem;color:var(--text-light);text-align:center;margin-top:12px;">We'll send personalized plan recommendations to your WhatsApp.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / WAITLIST -->
+<section class="cta-section" id="waitlist">
+  <h2>Don't wait for a crisis.<br>Protect them today.</h2>
+  <p>Join 500+ pet parents already on the PawShield waitlist. Be first to get access when we launch.</p>
+  <div class="waitlist-form">
+    <input type="email" placeholder="Your email address" id="waitlistEmail">
+    <button onclick="joinWaitlist()">Join Waitlist 🐾</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-logo">
+    <div class="logo-icon" style="width:28px;height:28px;border-radius:8px;font-size:14px;">🛡️</div>
+    PawShield
+  </div>
+  <p>Because love shouldn't come with a medical bill you can't afford.</p>
+  <p style="margin-top:8px;">Made with 💛 in India · In memory of Coco 🐾</p>
+  <div class="footer-links">
+    <a href="#">About</a>
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+<!-- SUCCESS MODAL -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="success-icon">🎉</div>
+    <h3 id="modalTitle">You're on the list!</h3>
+    <p id="modalMessage">We'll send your personalized plan recommendations to your WhatsApp shortly.</p>
+  </div>
+</div>
+
+<!-- Load Supabase SDK first -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+// ===== SUPABASE CONFIG =====
+// 🔧 REPLACE THESE WITH YOUR ACTUAL SUPABASE VALUES (see deployment guide)
+const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+
+var supabaseClient = null;
+
+// Initialize Supabase
+function initSupabase() {
+  try {
+    if (SUPABASE_URL !== 'YOUR_SUPABASE_URL' && window.supabase && window.supabase.createClient) {
+      supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      console.log('✅ Supabase connected!');
+    } else if (SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+      console.log('⏳ Supabase SDK not loaded yet — will retry on first save');
+    } else {
+      console.log('ℹ️ Running in demo mode — Supabase not configured');
+    }
+  } catch(e) { console.log('Supabase init skipped:', e.message); }
+}
+
+// Helper to save data — NEVER blocks the UI
+async function saveToSupabase(table, data) {
+  try {
+    // Retry init if not connected yet but credentials exist
+    if (!supabaseClient && SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+      initSupabase();
+    }
+    if (!supabaseClient) {
+      console.log('[Demo Mode] Would save to ' + table + ':', JSON.stringify(data));
+      return true;
+    }
+    var result = await supabaseClient.from(table).insert([data]);
+    if (result.error) {
+      console.error('Supabase error:', result.error.message);
+    } else {
+      console.log('✅ Saved to ' + table);
+    }
+    return !result.error;
+  } catch(e) {
+    console.error('Save failed:', e);
+    return true;
+  }
+}
+
+// ===== BREED DATA =====
+const breedData = {
+  'Labrador': {
+    emoji: '🦮', size: 'Large', lifespan: '10–12 yrs',
+    risks: [
+      { name: 'Hip Dysplasia', desc: 'Joint deformity, surgery often needed', cost: '₹40,000 – ₹1,20,000' },
+      { name: 'ACL Tear', desc: 'Ligament injury from running/jumping', cost: '₹30,000 – ₹80,000' },
+      { name: 'Bloat (GDV)', desc: 'Life-threatening stomach twist', cost: '₹25,000 – ₹60,000' },
+      { name: 'Ear Infections', desc: 'Chronic, needs recurring treatment', cost: '₹3,000 – ₹8,000/year' },
+      { name: 'Obesity-related issues', desc: 'Diabetes, joint stress', cost: '₹10,000 – ₹40,000' },
+    ],
+    totalMax: '₹3,08,000', insurance: '₹350 – ₹700/month'
+  },
+  'German Shepherd': {
+    emoji: '🐕‍🦺', size: 'Large', lifespan: '9–13 yrs',
+    risks: [
+      { name: 'Hip Dysplasia', desc: 'Very common in this breed', cost: '₹40,000 – ₹1,50,000' },
+      { name: 'Degenerative Myelopathy', desc: 'Spinal cord disease', cost: '₹20,000 – ₹60,000' },
+      { name: 'Bloat (GDV)', desc: 'Emergency surgery needed', cost: '₹25,000 – ₹60,000' },
+      { name: 'Skin Allergies', desc: 'Chronic, needs long-term care', cost: '₹5,000 – ₹15,000/year' },
+      { name: 'Elbow Dysplasia', desc: 'Painful joint condition', cost: '₹30,000 – ₹80,000' },
+    ],
+    totalMax: '₹3,65,000', insurance: '₹400 – ₹800/month'
+  },
+  'Golden Retriever': {
+    emoji: '🐕', size: 'Large', lifespan: '10–12 yrs',
+    risks: [
+      { name: 'Cancer', desc: '#1 cause of death in Goldens', cost: '₹50,000 – ₹2,00,000' },
+      { name: 'Hip Dysplasia', desc: 'Common hereditary issue', cost: '₹40,000 – ₹1,20,000' },
+      { name: 'Heart Disease', desc: 'Subvalvular aortic stenosis', cost: '₹30,000 – ₹1,00,000' },
+      { name: 'Skin Conditions', desc: 'Hot spots, allergies', cost: '₹5,000 – ₹20,000/year' },
+      { name: 'Eye Problems', desc: 'Cataracts, PRA', cost: '₹15,000 – ₹50,000' },
+    ],
+    totalMax: '₹4,90,000', insurance: '₹400 – ₹850/month'
+  },
+  'Lhasa Apso': {
+    emoji: '🐾', size: 'Small', lifespan: '12–15 yrs',
+    risks: [
+      { name: 'Kidney Disease', desc: 'Renal dysplasia — hereditary', cost: '₹20,000 – ₹80,000' },
+      { name: 'Eye Problems', desc: 'PRA, dry eye, cherry eye', cost: '₹10,000 – ₹50,000' },
+      { name: 'IVDD (Disc Disease)', desc: 'Spinal disc rupture, may need surgery', cost: '₹25,000 – ₹1,00,000' },
+      { name: 'Patellar Luxation', desc: 'Kneecap displacement', cost: '₹15,000 – ₹60,000' },
+      { name: 'Skin Allergies', desc: 'Food & environmental triggers', cost: '₹5,000 – ₹15,000/year' },
+    ],
+    totalMax: '₹3,05,000', insurance: '₹250 – ₹550/month'
+  },
+  'Pug': {
+    emoji: '🐶', size: 'Small', lifespan: '12–15 yrs',
+    risks: [
+      { name: 'Breathing Issues (BOAS)', desc: 'Flat face = chronic breathing trouble', cost: '₹20,000 – ₹80,000' },
+      { name: 'Eye Problems', desc: 'Protruding eyes are injury-prone', cost: '₹10,000 – ₹40,000' },
+      { name: 'Skin Fold Infections', desc: 'Needs daily cleaning', cost: '₹3,000 – ₹12,000/year' },
+      { name: 'Patellar Luxation', desc: 'Kneecap slips out', cost: '₹15,000 – ₹50,000' },
+      { name: 'Heatstroke', desc: 'Dangerous in Indian summers', cost: '₹5,000 – ₹25,000' },
+    ],
+    totalMax: '₹2,07,000', insurance: '₹250 – ₹500/month'
+  },
+  'Indie': {
+    emoji: '🐕', size: 'Medium', lifespan: '13–17 yrs',
+    risks: [
+      { name: 'Tick-borne Diseases', desc: 'Ehrlichiosis, babesiosis', cost: '₹8,000 – ₹30,000' },
+      { name: 'Skin Infections', desc: 'Mange, fungal issues', cost: '₹3,000 – ₹15,000' },
+      { name: 'Accident Injuries', desc: 'Fractures, wounds from outdoor life', cost: '₹10,000 – ₹50,000' },
+      { name: 'Parvo / Distemper', desc: 'Viral infections, especially in puppies', cost: '₹10,000 – ₹40,000' },
+      { name: 'Gastrointestinal Issues', desc: 'Parasites, dietary issues', cost: '₹3,000 – ₹12,000' },
+    ],
+    totalMax: '₹1,47,000', insurance: '₹169 – ₹400/month'
+  },
+  'Shih Tzu': {
+    emoji: '🐾', size: 'Small', lifespan: '10–16 yrs',
+    risks: [
+      { name: 'Eye Problems', desc: 'Cataracts, corneal ulcers', cost: '₹10,000 – ₹50,000' },
+      { name: 'Breathing Issues', desc: 'Brachycephalic syndrome', cost: '₹15,000 – ₹60,000' },
+      { name: 'Dental Disease', desc: 'Overcrowded teeth', cost: '₹5,000 – ₹20,000' },
+      { name: 'Ear Infections', desc: 'Floppy ears trap moisture', cost: '₹3,000 – ₹10,000/year' },
+      { name: 'Kidney Issues', desc: 'Hereditary predisposition', cost: '₹15,000 – ₹60,000' },
+    ],
+    totalMax: '₹2,00,000', insurance: '₹250 – ₹500/month'
+  },
+  'Beagle': {
+    emoji: '🐕', size: 'Medium', lifespan: '12–15 yrs',
+    risks: [
+      { name: 'Epilepsy', desc: 'Seizure disorder, needs lifelong meds', cost: '₹10,000 – ₹40,000/year' },
+      { name: 'IVDD (Disc Disease)', desc: 'Spinal issues', cost: '₹20,000 – ₹80,000' },
+      { name: 'Ear Infections', desc: 'Long floppy ears = chronic issue', cost: '₹3,000 – ₹10,000/year' },
+      { name: 'Hypothyroidism', desc: 'Weight gain, lethargy', cost: '₹5,000 – ₹15,000/year' },
+      { name: 'Cherry Eye', desc: 'Third eyelid prolapse', cost: '₹8,000 – ₹25,000' },
+    ],
+    totalMax: '₹1,70,000', insurance: '₹250 – ₹500/month'
+  },
+};
+
+// ===== POPULATE BREED GRID =====
+const breedGrid = document.getElementById('breedGrid');
+Object.keys(breedData).forEach(function(name) {
+  var data = breedData[name];
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'breed-btn';
+  btn.innerHTML = '<span class="breed-emoji">' + data.emoji + '</span>' + name;
+  btn.onclick = function() { selectBreed(name, btn); };
+  breedGrid.appendChild(btn);
+});
+
+function selectBreed(name, btn) {
+  document.querySelectorAll('.breed-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+
+  // Track breed interest (non-blocking)
+  saveToSupabase('breed_searches', {
+    breed: name,
+    created_at: new Date().toISOString()
+  });
+
+  var data = breedData[name];
+  document.getElementById('calcBreedName').textContent = name;
+  document.getElementById('calcBreedMeta').textContent = data.size + ' breed · Lifespan: ' + data.lifespan;
+
+  var riskList = document.getElementById('riskList');
+  riskList.innerHTML = data.risks.map(function(r) {
+    return '<div class="risk-item"><div><div class="risk-name">' + r.name + '</div><div class="risk-desc">' + r.desc + '</div></div><div class="risk-cost">' + r.cost + '</div></div>';
+  }).join('');
+
+  document.getElementById('totalCost').textContent = data.totalMax;
+  document.getElementById('insurancePrice').textContent = data.insurance;
+  document.getElementById('calcResults').classList.add('show');
+}
+
+// ===== NAVIGATION =====
+function scrollTo(selector) {
+  document.querySelector(selector).scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Navbar scroll effect
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// ===== PET TYPE SELECTOR =====
+function selectPetType(btn, type) {
+  document.querySelectorAll('.pet-type-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  // Update breed dropdown if cat
+  const breedSelect = document.getElementById('petBreed');
+  if (type === 'cat') {
+    breedSelect.innerHTML = `
+      <option value="">Select breed</option>
+      <option>Persian</option>
+      <option>Siamese</option>
+      <option>Maine Coon</option>
+      <option>British Shorthair</option>
+      <option>Indian Domestic / Mixed</option>
+      <option>Ragdoll</option>
+      <option>Bengal</option>
+      <option>Other</option>
+    `;
+  } else {
+    breedSelect.innerHTML = `
+      <option value="">Select breed</option>
+      <option>Labrador Retriever</option>
+      <option>German Shepherd</option>
+      <option>Golden Retriever</option>
+      <option>Lhasa Apso</option>
+      <option>Pug</option>
+      <option>Beagle</option>
+      <option>Shih Tzu</option>
+      <option>Pomeranian</option>
+      <option>Rottweiler</option>
+      <option>Doberman</option>
+      <option>Indian Spitz</option>
+      <option>Cocker Spaniel</option>
+      <option>Siberian Husky</option>
+      <option>Great Dane</option>
+      <option>Dalmatian</option>
+      <option>Indie / Mixed Breed</option>
+      <option>Other</option>
+    `;
+  }
+}
+
+// ===== FORM SUBMISSION =====
+async function submitProfile(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button[type="submit"]');
+  const originalText = btn.innerHTML;
+  btn.innerHTML = '⏳ Saving...';
+  btn.disabled = true;
+
+  const name = document.getElementById('petName').value;
+  const petType = document.querySelector('.pet-type-btn.active')?.textContent.trim().toLowerCase() || 'dog';
+
+  // Save in background — don't block UI
+  saveToSupabase('pet_profiles', {
+    pet_name: name,
+    pet_type: petType,
+    breed: document.getElementById('petBreed').value,
+    age: document.getElementById('petAge').value,
+    city: document.getElementById('petCity').value,
+    phone: document.getElementById('petPhone').value,
+    created_at: new Date().toISOString()
+  });
+
+  // Always show success immediately
+  setTimeout(function() {
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+    showModal(
+      name + "'s shield is coming! 🛡️",
+      "We've saved " + name + "'s profile. You'll receive personalized insurance recommendations on WhatsApp within 24 hours. Welcome to the PawShield family!"
+    );
+  }, 500);
+}
+
+// ===== WAITLIST =====
+function showWaitlist(planName) {
+  // Save in background
+  saveToSupabase('waitlist', {
+    plan_selected: planName,
+    source: 'plan_card',
+    created_at: new Date().toISOString()
+  });
+
+  showModal(
+    'Great choice! 🎉',
+    'You selected the ' + planName + ' plan. We are finalizing partnerships with insurers and will notify you the moment this plan is available. You are now on the priority list!'
+  );
+}
+
+function joinWaitlist() {
+  var email = document.getElementById('waitlistEmail').value;
+  if (!email || email.indexOf('@') === -1) {
+    document.getElementById('waitlistEmail').focus();
+    return;
+  }
+
+  var btn = document.querySelector('.waitlist-form button');
+  btn.textContent = '⏳ Joining...';
+
+  // Save in background
+  saveToSupabase('waitlist', {
+    email: email,
+    source: 'footer_cta',
+    created_at: new Date().toISOString()
+  });
+
+  // Always show success immediately
+  setTimeout(function() {
+    btn.textContent = 'Join Waitlist 🐾';
+    showModal(
+      "You're on the list! 🐾",
+      "We'll notify you at " + email + " when PawShield launches. You're among the first 500 pet parents to join — that means early access and special pricing."
+    );
+    document.getElementById('waitlistEmail').value = '';
+  }, 500);
+}
+
+// ===== MODAL =====
+function showModal(title, message) {
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalMessage').textContent = message;
+  document.getElementById('successModal').classList.add('show');
+}
+function closeModal() {
+  document.getElementById('successModal').classList.remove('show');
+}
+document.getElementById('successModal').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeModal();
+});
+
+// Initialize Supabase
+initSupabase();
+</script>
+
+</body>
+</html>
